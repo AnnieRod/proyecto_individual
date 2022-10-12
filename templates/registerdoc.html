@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital@0;1&family=Poppins:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../static/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../static/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>Register/Login here!</title>
+</head>
+<body>
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-around">
+            <h1 class="logo me-auto"><a href="/doctor/register">MedCenter</a></h1>
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/">Inicio</a></li>
+                    <li><a class="nav-link scrollto" href="/services">Servicios</a></li>
+                    <li><a class="nav-link scrollto" href="/contact">Contacto</a></li>
+                    <li class="dropdown"><a class="nav-link scrollto" href="#"><span>Login/Registro</span> <i
+                                class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li class="dropdown"><a href="/patient/register">Pacientes</a></li>
+                            <li class="dropdown"><a href="/doctor/register">Doctores</a></li>
+            </nav>
+            <a href="/patient/takesession" class="appointment-btn scrollto"><span class="d-none d-md-inline">¡Pide tu
+                    cita!</span></a>
+        </div>
+    </header>
+    <main id="main">
+        <div class="d-flex justify-content-between mt-5 h-auto">
+            <div class="container p-4">
+                <form action="/doctor/create" method="post" class="row formstyle">
+                    <h1 class="mt-5">Registro de terapeuta</h1>
+                    {% with messages = get_flashed_messages(category_filter=['register']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="col">
+                        <label for="first_name">Nombre:</label>
+                        <input type="text" class="form-control" id= "first_name" name="first_name">
+                    </div>
+                    <div class="col">
+                        <label for="last_name">Apellido:</label>
+                        <input type="text" class="form-control" id= "last_name" name="last_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="mail">Correo:</label>
+                        <input type="text" class="form-control" id= "mail" name="mail">
+                    </div>
+                    <div class="col">
+                        <label for="card">Tarjeta profesional:</label>
+                        <input type="number" class="form-control" id= "card" name="card">
+                    </div>
+                    <div class="col">
+                        <label for="area_id">Area:</label>
+                        <select class="form-control" name="area_id" id = "area_id">
+                            <option value= "">Selecciona un area</option>
+                            {% for area in all_areas %}
+                            <option value= {{area.id}}>{{ area.area_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" class="form-control" id="password" name = "password">
+                        </div>
+                        <div class="col">
+                            <label for="confirm_password">Confirma contraseña:</label>
+                            <input type="password" class="form-control" id="confirm_password" name = "confirm_password">
+                        </div>
+                    </div>
+                    <button type="submit" class="appointment-btn mt-5 w-25">Registrar</button>
+                </form>
+            </div>
+            <div class="container h-auto p-4 login">
+                <h1 class="mt-5">Iniciar sesión</h1>
+                <form action="/doctor/login" method="post">
+                    {% with messages = get_flashed_messages(category_filter=['login']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="form-group w-75">
+                        <label for="mailt">Correo:</label>
+                        <input type="email" class="form-control" id= "mail" name="mail">
+                    </div>
+                    <div class="form-group w-75">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" class="form-control" id="password" name = "password">
+                    </div>
+                    <button type="submit" class="login-btn">Inicia sesión</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer id="footer" class="fixed-bottom">
+        <button type="button" class="btn-floating btn-lg btn" id="btn-back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="container d-md-flex py-4">
+            <div class="me-md-auto text-center text-md-start">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>MedCenter</span></strong>. Todos los derechos reservados.
+                </div>
+                <div class="credits">
+                    Diseñado por <a href="https://github.com/AnnieRod">Ana M. Rodríguez</a>
+                </div>
+            </div>
+            <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>
